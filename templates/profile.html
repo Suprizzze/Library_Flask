@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+{{ super() }}
+{% for msg in get_flashed_messages() %}
+<div class="flash white-text">{{ msg }}</div>
+{% endfor %}
+<div class="profile-container white-text">
+  <div class="profile-ava"><img src="{{ url_for('userava') }}"></div>
+  <div class="profile-load hide-on-small">
+    <form action="{{ url_for('upload')}}" method="post" enctype="multipart/form-data">
+        <br>
+      <label class="custom-file-upload">Choose File
+  <input type="file" name="file">
+    </label>
+      <p><input type="submit" value="Upload">
+    </form>
+  </div>
+
+  <div class="profile-panel white-text">
+    <p><a href="{{ url_for('logout')}}">Logout</a></p>
+    <ul class="profile-info">
+      <li>Name: {{ current_user.getName() }}</li>
+      <li>Login: {{ current_user.getLogin() }}</li>
+    </ul>
+  </div>
+</div>
+<div class="profile-stat white-text">
+  <ul>
+    <li>Status: {{ current_user.getStat() }}</li>
+    <li>Book limit: {{ current_user.getLimit() }}</li>
+    <li>Number of books: {{ current_user.getCountlimit()}}</li>
+    </div>
+<div class="current_have white-text">
+    <ul class="date-list">
+        {% if current_user.getB_time() %}
+        <p>Pickup Date:</p>
+        {% for date in current_user.getB_time() %}
+            <li>{{ date }}</li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+
+    <li class="book-list">
+        {% if current_user.getHavebook() %}
+        <p>Books taken:</p>
+        <ul>
+            {% if current_user.getHavebook() %}
+                {% for book in list_title %}
+
+                    <li><a href="{{ url_for('showBook', alias=book.url)}}">{{ book.title }}</a></li>
+                {% endfor %}
+            {% endif %}
+            {% else %}
+            <p>Books taken:</p>
+                <p>No books</p>
+        </ul>
+    </li>
+{% endif %}
+    <li class="data_cr_acc white-text">Account was created: {{ current_user.getFirsttime() }}</li>
+  </ul>
+</div>
+{% endblock %}

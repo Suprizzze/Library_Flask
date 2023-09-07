@@ -1,0 +1,20 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+<h3>Register BookCopy</h3>
+<form class='white-text' method="post">
+    <label for="book_id">Book_id:</label>
+    <br>
+    <input type="text" name="book_id" required><br>
+    <br>
+    <label for="state">State:</label>
+    <br>
+    <input type="text" name="state" required><br>
+    <br>
+    <button type="submit">Register BookCopy</button>
+</form>
+<div class="under"</div>
+{% endblock %}

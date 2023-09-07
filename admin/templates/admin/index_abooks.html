@@ -1,0 +1,21 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+{{ super() }}
+<form action="search_book_A" method="POST">
+    <p><input  class="search_input" type="text" name="search_book_A"  required align="left"><input class="search_submit" type="submit" value="Search"></p>
+</form>
+<h3>List of books</h3>
+<div class="flex-container">
+    {% for book in books %}
+    <div class="flex-item">
+        <p class="title_b">
+            <a href="{{ url_for('.showaBook', alias=book.url)}}">{{ book.title }}</a>
+        </p>
+        {% if book.image %}
+        <img src="/{{ book.image }}" alt="Book cover" class="book-cover">
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

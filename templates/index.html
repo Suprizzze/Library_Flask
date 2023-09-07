@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<h3>List of books</h3>
+<div class="flex-container">
+    {% for book in books %}
+    <div class="flex-item">
+        <p class="title_b">
+            <a href="{{ url_for('showBook', alias=book.url)}}">{{ book.title }}</a>
+        </p>
+        {% if book.image %}
+        <img src="{{ book.image }}" alt="Book cover" class="book-cover">
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

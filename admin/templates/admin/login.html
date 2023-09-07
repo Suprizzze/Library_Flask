@@ -1,0 +1,18 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+{{ super() }}
+<div id="login" class="form-contact white-text">
+  <div class="login">
+    <p class="title">Admin Panel</p>
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+    <form action="" method="post">
+    <p><label>Login: <br></label> <input type="text" name="user" value="" required />
+    <p><label>Password:<br></label> <input type="password" name="psw" value="" required  />
+    <p align="left"><input class="login_button" type="submit" value="Login"></p>
+    </form>
+</div>
+    <div class="under"</div>
+</div>{% endblock %}

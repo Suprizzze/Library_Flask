@@ -1,0 +1,26 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+    {{ super() }}
+    <ul>
+        <div class="flex-container">
+        {% if not posts %}
+            <p class="white-text" style="font-size: 23px;">This word was not found in the database</p>
+        {% endif %}
+
+        {% for post in posts %}
+            {% for book in books %}
+                {% if post.title in book.title %}
+                    <div class="flex-item">
+                    <p class="title_b" style="margin-right: 20px;">
+                            <a href="{{ url_for('.showaBook', alias=book.url) }}">{{ book.title }}</a>
+                        </p>
+                        {% if book.image %}
+                            <img src="/{{ book.image }}" alt="Book cover" style="width: 140px; height: 200px;">
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endblock %}

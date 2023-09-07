@@ -1,0 +1,17 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+{{ super()}}
+<h3 class="list-students">List of students</h3>
+<ul class="list-students">
+    <form action="search_student" method="POST">
+    <p><input  class="search_input" type="text" name="search_student"  required align="left"><input class="search_submit" type="submit" value="Search"></p>
+    </form>
+    {% for s in students %}
+    <li>
+        <p class="title"><a href="{{ url_for('.showStudents', alias=s.url)}}">id = {{s.id}}, {{s.fullname}}</a></p>
+    </li>
+    {% endfor %}
+</ul>
+<div class="under"</div>
+{% endblock %}

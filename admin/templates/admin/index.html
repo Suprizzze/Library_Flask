@@ -1,0 +1,29 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    {{ super() }}
+    <h3>Admin Data:</h3>
+    <div class="admin-blocks white-text" style="word-wrap: break-word;">
+        {% for admin in admins %}
+            <div class="admin-block">
+                <p><strong>ID:</strong>&nbsp;&nbsp;&nbsp;{{ admin.id }}</p>
+                <p><strong>Status:</strong>&nbsp;&nbsp;&nbsp;{{ admin.user_status }}</p>
+                <p><strong>Login:</strong>&nbsp;&nbsp;&nbsp;{{ admin.login }}</p>
+                <p><strong>Email:</strong>&nbsp;&nbsp;&nbsp;{{ admin.email }}</p>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+

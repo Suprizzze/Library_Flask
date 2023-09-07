@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="white-text">
+    {{ super() }}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+    <div class="book-details">
+        <div class="book-details__info">
+            <h3>{{ books.title }}</h3>
+            <p>Authors: {{ books.authors }}</p>
+            <p>Year of release: {{ books.year }}</p>
+            <p>ISBN: {{ books.ISBN }}</p>
+            <p>Genre: {{ books.genre }}</p>
+        </div>
+        {% if books.image %}
+            <div class="book-details__image">
+                <img src="/{{ books.image }}" alt="{{ books.title }}" style="width: 350px; height: 500px;">
+
+<form action="" method="post" class="form-contact white-text">
+    <input type="hidden" name="reserve_book">
+    <p align="left"><input class="book_button" type="submit" value="Borrow the book"></p>
+</form>
+
+<form action="" method="post" class="form-contact white-text">
+    <input type="hidden" name="return_book">
+    <p align="left"><input class="book_button" type="submit" value="Return the book"></p>
+</form>
+            </div>
+        {% endif %}
+        <div class="book-about"><p>About the book: {{ books.about }}</p></div>
+    </div>
+</div>
+
+{% endblock %}

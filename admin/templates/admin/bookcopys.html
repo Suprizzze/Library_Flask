@@ -1,0 +1,46 @@
+{% extends 'admin/base_admin.html' %}
+{% block content %}
+    {{ super() }}
+
+    <div class="content white-text">
+        <h3>Book: {{ book.title }}</h3>
+        {% for bookcopy in bookcopies %}
+            <div class="bookcopy-details">
+                <div class="bookcopy-details__info">
+                    <button class="edit-button">Edit</button>
+                    <form class="edit-form" method="post" action="{{ url_for('.showBooksCopy', alias_id=book.id) }}" style="display: none;">
+                        <button class="delete-button" type="submit" name="delete">Delete</button>
+                        <p>Id: <input type="text" name="id" value="{{ bookcopy.id }}"></p>
+                        <p>State: <input type="text" name="state" value="{{ bookcopy.state }}"></p>
+                        <p>Status: <input type="text" name="status" value="{{ bookcopy.status }}"></p>
+                        <button type="submit">Update</button>
+                    </form>
+                    <p>Id: {{ bookcopy.id }}</p>
+                    <p>Book Id: {{ bookcopy.book_id }}</p>
+                    <p>State: {{ bookcopy.state }}</p>
+                    <p>Status: {{ bookcopy.status }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="under"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".edit-button").on("click", function() {
+                var listItem = $(this).closest(".bookcopy-details");
+                listItem.find(".id").toggle();
+                listItem.find(".state").toggle();
+                listItem.find(".status").toggle();
+                listItem.find(".edit-form").toggle();
+            });
+
+            $(".delete-button").on("click", function(e) {
+                if (!confirm("Are you sure you want to delete this copy?")) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

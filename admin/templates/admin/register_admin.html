@@ -1,0 +1,30 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block content %}
+    {{ super() }}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <h3>Admin registration:</h3>
+    <form method="post">
+        <div class="reg_admin white-text">
+            <label for="login">Login<br></label>
+            <input type="text" class="form-control" id="login" name="login" required>
+            <br>
+            <br>
+            <label for="email">Email<br></label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <br>
+            <br>
+            <label for="psw">Password<br></label>
+            <input type="password" class="form-control" id="psw" name="psw" required>
+            <br>
+            <br>
+            <label for="user_status">User status<br></label>
+            <input type="text" class="form-control" id="user_status" name="user_status" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div class="under"</div>
+{% endblock %}

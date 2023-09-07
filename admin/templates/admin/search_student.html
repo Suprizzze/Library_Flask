@@ -1,0 +1,33 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+{{ super() }}
+    <ul>
+{% if posts %}
+        {% else %}
+            <p class="white-text" style="font-size: 23px;">This word was not found in the database</p>
+            {% endif %}
+{% for post in posts %}
+<div class="flex">
+    {% for i in range(0, students|length, 2) %}
+        <div class="row">
+            {% for j in range(2) %}
+                {% set index = i + j %}
+                {% if index < students|length %}
+                {% if post.fullname == students[index].fullname %}
+                <div class="list-students">
+                    <p class="fullname" style="font-size: 23px;">
+                        <a href="{{ url_for('.showStudents', alias=students[index].url)}}">{{ students[index].id}} {{ students[index].fullname }}
+                        </a>
+                    </p>
+                {% endif %}
+
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+<h3>Register Book</h3>
+<form class='white-text' method="post">
+    <label for="title">Title:</label>
+    <br>
+    <input type="text" name="title" required><br>
+    <br>
+    <label for="author">Author:</label>
+    <br>
+    <input type="text" name="author" required><br>
+    <br>
+    <label for="year">Year:</label>
+    <br>
+    <input type="number" name="year" required><br>
+    <br>
+    <label for="ISBN">ISBN:</label>
+    <br>
+    <input type="text" name="ISBN" required><br>
+    <br>
+    <label for="genre">Genre:</label>
+    <br>
+    <input type="text" name="genre" required><br>
+    <br>
+    <label for="url">URL:</label>
+    <br>
+    <input type="text" name="url" required><br>
+    <br>
+    <label for="image">Image:</label>
+    <br>
+    <input type="text" name="image"><br>
+    <br>
+    <label for="about">About:</label>
+    <br>
+    <textarea name="about"></textarea><br>
+    <br>
+    <button type="submit">Register Book</button>
+</form>
+<div class="under"</div>
+{% endblock %}

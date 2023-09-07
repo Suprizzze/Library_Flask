@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" href="{{ url_for('admin.static', filename='css/admin_css.css') }}" rel="stylesheet"/>
+    <title>{{ title }}</title>
+</head>
+<body>
+{% if menu -%}
+    <ul class="mainmenu">
+    {% for p in menu %}
+        <li><a href="{{ url_for(p.url) }}">{{p.title}}</a></li>
+    {% endfor %}
+    </ul>
+    <div class="clear"></div>
+{% endif %}
+{% if menu1 -%}
+    <ul class="mainmenu1">
+    {% for p in menu1 %}
+        <li><a href="{{ url_for(p.url) }}">{{p.title}}</a></li>
+    {% endfor %}
+        <li class="time_now white-text"><strong>{{ time_now() }}</strong></li>
+    </ul>
+    <div class="clear"></div>
+{% endif %}
+<div class="content">
+    {%block content -%}
+    {% endblock %}
+</div>
+</body>
+</html>
