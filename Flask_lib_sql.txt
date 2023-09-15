@@ -1,0 +1,259 @@
+CREATE TABLE public.books (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    authors character varying(255) NOT NULL,
+    year integer NOT NULL,
+    "ISBN" character varying(255) NOT NULL,
+    genre character varying(255) NOT NULL,
+    url text NOT NULL,
+    image text,
+    about text
+);
+
+
+ALTER TABLE public.books OWNER TO postgres;
+
+
+
+CREATE SEQUENCE public.books_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.books_id_seq OWNER TO postgres;
+
+
+
+ALTER SEQUENCE public.books_id_seq OWNED BY public.books.id;
+
+
+
+
+CREATE TABLE public.bookscopy (
+    id integer NOT NULL,
+    book_id integer NOT NULL,
+    state integer NOT NULL,
+    status text
+);
+
+
+ALTER TABLE public.bookscopy OWNER TO postgres;
+
+
+
+CREATE SEQUENCE public.bookscopy_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bookscopy_id_seq OWNER TO postgres;
+
+
+
+ALTER SEQUENCE public.bookscopy_id_seq OWNED BY public.bookscopy.id;
+
+
+
+
+CREATE TABLE public.mainmenu (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    url character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.mainmenu OWNER TO postgres;
+
+
+
+CREATE TABLE public.mainmenu_admin (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    url character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.mainmenu_admin OWNER TO postgres;
+
+
+
+CREATE TABLE public.mainmenu_admin_lower (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    url character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.mainmenu_admin_lower OWNER TO postgres;
+
+
+
+CREATE TABLE public.students (
+    id integer NOT NULL,
+    fullname character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    login text NOT NULL,
+    psw text NOT NULL,
+    avatar bytea,
+    have_book character varying(255)[],
+    stat integer,
+    count_limit integer,
+    "limit" integer,
+    b_time character varying(255)[],
+    url text NOT NULL,
+    "time" text NOT NULL
+);
+
+
+ALTER TABLE public.students OWNER TO postgres;
+
+
+
+CREATE SEQUENCE public.students_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.students_id_seq OWNER TO postgres;
+
+
+
+ALTER SEQUENCE public.students_id_seq OWNED BY public.students.id;
+
+
+
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    login character varying(20) NOT NULL,
+    email character varying(120) NOT NULL,
+    psw text NOT NULL,
+    user_status character varying(40)
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+
+
+ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_id_seq'::regclass);
+
+
+
+
+ALTER TABLE ONLY public.bookscopy ALTER COLUMN id SET DEFAULT nextval('public.bookscopy_id_seq'::regclass);
+
+
+
+
+ALTER TABLE ONLY public.students ALTER COLUMN id SET DEFAULT nextval('public.students_id_seq'::regclass);
+
+
+
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+INSERT INTO public.books (title, authors, year, "ISBN", genre, url, image, about)
+VALUES
+('Tales from Outer Suburbia', 'Tan Shaun', 2009, '0545055873', 'Tales from the suburbs','Tales_Outer', 'static/images/Py9.jpg', 'An exchange student who''s really an alien, a secret room that becomes the perfect place for a quick escape, a typical tale of grandfatherly exaggeration that is actually even more bizarre than he says... These are the odd details of everyday life that grow and take on an incredible life of their own in tales and illustrations that Shaun Tan''s many fans will love.'),
+('House of Sky and Breath', 'Maas, Sarah J.', 2023, '9781526628220', 'NovelsMonsters and legendary creatures','House_of_Sky', 'static/images/Py10.jpg', 'Think Game of Thrones meets Buffy the Vampire Slayer with a drizzle of E.L. James. The deadliest power. The fiercest passion. The cruellest fate. The #1 Sunday Times bestseller and sequel to the #1 New York Times bestseller. Sarah J. Maas'' sexy, groundbreaking CRESCENT CITY series continues with this second installment. Bryce Quinlan and Hunt Athalar have made a pact. As they process the events of the Spring they will keep things platonic until Winter Solstice. But can they resist when the crackling tension between them is enough to set the whole of Crescent City aflame? And they are not out of danger yet. Dragged into a rebel movement they want no part of, Bryce, Hunt and their friends find themselves pitted against the terrifying Asteri - whose notice they must avoid at all costs. But as they learn more about the rebel cause, they face a choice: stay silent while others are oppressed, or fight. And they''ve never been very good at staying silent. In this sexy, action-packed sequel to the #1 bestseller House of Earth and Blood, Sarah J. Maas weaves a captivating story of a world about to explode - and the people who will do anything to save it.'),
+('Demon Slayer: Kimetsu No Yaiba, Vol. 3', 'Gotouge Koyoharu', 2018, '9781974700547', 'Graphic Novels: Manga','Demon_Slayer', 'static/images/Py11.jpg', 'Tanjiro sets out on the path of the Demon Slayer to save his sister and avenge his family!'),
+('Fluent Python: Clear, Concise', 'Luciano Ramalho', 2015, '978-0-1323-5088-4', 'Education','Fluent_Python', 'static/images/Py1.jpg', NULL),
+('Mind Power into the 21st Century', 'John Kehoe', 1997, '978-985-15-2314-2', 'Literature on self-development','Mind_Power', 'static/images/Py2.jpg', NULL),
+('Demon Slayer: Kimetsu No Yaiba, Vol. 2', 'Gotouge Koyoharu', 2018, '1974700534', 'Graphic Novels: Manga','Demon_Slayer_Kimetsu', 'static/images/Py12.jpg', 'Tanjiro sets out on the path of the Demon Slayer to save his sister and avenge his family!'),
+('Leonardo da Vinci', 'Walter Isaacson', 2017, '978-1501139154', 'Artist & Architect Biographies','Leonardo_da_Vinci', 'static/images/Py4.jpg', 'The #1 New York Times bestseller from Walter Isaacson brings Leonardo da Vinci to life in this exciting new biography that is “a study in creativity: how to define it, how to achieve it… Most important, it is a powerful story of an exhilarating mind and life” (The New Yorker).'),
+('The Hitchhiker''s Guide to the Galaxy', 'Douglas Adams', 2007, '0593359445', 'Literature & Fiction','The_Hitchhiker''s_Guide', 'static/images/Py5.jpg', 'This beautifully illustrated edition of the New York Times bestselling classic celebrates the 42nd anniversary of the original publication—with all-new art by award-winning illustrator Chris Riddell. SOON TO BE A HULU SERIES. An astonishing comic writer. Nominated as one of America’s best-loved novels by PBS’s The Great American Read.'),
+('For White Folks Who Teach in the Hood', 'Emdin Christopher', 2017, '9780807028025', 'Teaching skills and methods','For_White_Folks', 'static/images/Py6.jpg', 'A New York Times Best Seller. Merging real stories with theory, research, and practice, a prominent scholar offers a new approach to teaching and learning for every stakeholder in urban education. Drawing on his own experience of feeling undervalued and invisible in classrooms as a young man of color and merging his experiences with more than a decade of teaching and researching in urban America, award-winning educator Christopher Emdin offers a new lens on an approach to teaching and learning in urban schools. For White Folks Who Teach in the Hood... and the Rest of Y''all Too is the much-needed antidote to traditional top-down pedagogy and promises to radically reframe the landscape of urban education for the better. He begins by taking to task the perception of urban youth of color as unteachable, and he challenges educators to embrace and respect each student''s culture and to reimagine the classroom as a site where roles are reversed and students become the experts in their own learning. Putting forth his theory of Reality Pedagogy, Emdin provides practical tools to unleash the brilliance and eagerness of youth and educators alike—both of whom have been typecast and stymied by outdated modes of thinking about urban education. With this fresh and engaging new pedagogical vision, Emdin demonstrates the importance of creating a family structure and building communities within the classroom, using culturally relevant strategies like hip-hop music and call-and-response, and connecting the experiences of urban youth to indigenous populations globally. Merging real stories with theory, research, and practice, Emdin demonstrates how by implementing the Seven Cs of reality pedagogy in their own classrooms, urban youth of color benefit from truly transformative education.'),
+('Harry Potter and the Prisoner of Azkaban', 'Rowling J.K.', 2017, '1408845660', 'Popular, Fantasy. Hits','Harry_Potter _Prisoner', 'static/images/Py7.jpg', 'Picture the magic – discover J.K. Rowling’s wizarding world with glorious full-color illustration by Jim Kay, winner of the Kate Greenaway Medal. An extraordinary creative achievement by an extraordinary talent, Jim Kay’s inspired reimagining of J.K. Rowling’s classic series has captured a devoted following worldwide. This stunning new fully illustrated edition of Harry Potter and the Prisoner of Azkaban brings more breathtaking scenes and unforgettable characters – including Sirius Black, Remus Lupin, and Professor Trelawney. With paint, pencil, and pixels, Kay conjures the wizarding world as we have never seen it before.'),
+('Eleanor Oliphant Is Completely Fine', 'Honeyman Gail', 2018, '9780735220690', 'Clinical and Therapeutic Medicine','Eleanor_Oliphant', 'static/images/Py8.jpg', 'Beautifully written and incredibly funny, Eleanor Oliphant Is Completely Fine is about the importance of friendship and human connection. I fell in love with Eleanor, an eccentric and regimented loner whose life beautifully unfolds after a chance encounter with a stranger; I think you will fall in love, too --Reese Witherspoon. No one''s ever told Eleanor that life should be better than fine.'),
+('Clean Code: A handbook of Agile', 'Martin Robert', 2008, '978-5-4461-1852-6', 'Education','Clean_Code', 'static/images/Py3.jpg', 'ydhdttrhy');
+
+INSERT INTO public.bookscopy (book_id, state, status)
+VALUES
+(1, 3, 'Free'),
+(2, 5, 'Busy'),
+(3, 5, 'Free'),
+(4, 4, 'Free'),
+(5, 5, 'Free'),
+(6, 7, 'Free'),
+(6, 8, 'Free'),
+(7, 10, 'Free'),
+(8, 3, 'Free'),
+(9, 2, 'Free');
+
+INSERT INTO public.mainmenu (id, title, url)
+VALUES
+(2, 'Login', '/login'),
+(4, 'About Us', '/about_us'),
+(3, 'Admin Panel', '/admin'),
+(1, 'Main Page', '/');
+
+
+INSERT INTO public.mainmenu_admin (id, title, url)
+VALUES
+(1, 'Admin Panel', 'admin.index'),
+(4, 'Add Admin', '.regAdmin'),
+(5, 'Add Book', '.regBook'),
+(12, 'Add Student', '.regStud'),
+(3, 'Add Book Copy', '.regBookCopy'),
+(2, 'Log Out', '.logout');
+
+
+INSERT INTO public.mainmenu_admin_lower (id, title, url)
+VALUES
+(4, 'List of Books', '.aBooks'),
+(3, 'List of Copy Books', '.booksCopy'),
+(2, 'Students list', '.students'),
+(1, 'Main Page', 'index');
+
+
+INSERT INTO public.students (fullname, email, login, psw, avatar, have_book, stat, count_limit, "limit", b_time, url, "time")
+VALUES ('Gevor Lapayan', 'Gev_lapayan@mail.ru', 'Gev_Lapa', 'pbkdf2:sha256:600000$eEtnjuouC7gt0TS5$ab013d1ef73ebb978ad8891d069bcf0ed759aec6e85eecfec2aa05ef42f02a81', NULL, NULL, 10, 0, 5, NULL, 'Gevor_Lapayan', '2023-09-07 19:26:11'),
+        ('Arsen Petrosyan', 'Arsen_petrosyan@mail.com', 'Arsen2002', 'pbkdf2:sha256:600000$WQlN1fu6UyFKfw7w$346166010753ef386c0ff21b9acb08020c9ce570ccf35f3c28ffd823c72852f7',NULL, NULL, 10, 0, 5, NULL, 'Arsen_Petrosyan', '2023-09-04 19:57:41'),
+        ('Hanry Harutyunyan', 'Hanry@gmail.com', 'Hanry', 'pbkdf2:sha256:600000$6mcA4ws2GCSAwFzk$7eb02daa426f514cdacf118ca0ee23dca27f215b88eded0d76b2de27c076fe5b', NULL, NULL, 10, 0, 5, NULL, 'Hanry_Harutyunyan', '2023-09-07 19:26:40'),
+        ('Gor Pogosyan', 'Gor_pogosyan@bk.ru', 'Gor_Pogosyan', 'pbkdf2:sha256:600000$IcvoNtnK1YQbnk3K$e8f730a79080722daf5ccb6ee5c8aaaef68f45dd78e02b52f2a4140b4a268d22', NULL, NULL, 10, 0, 5, NULL, 'Gor_Pogosyan', '2023-09-07 17:42:38'),
+        ('Vram Torosyan', 'vram_torosyan@gmail.com', 'Vram1993', 'pbkdf2:sha256:600000$FwePZCbFaj4um1Ut$5cbda101114382bc4ce945c1214e1bc66a439c2b923f5dd803e297e2cfe33f39', NULL, NULL, 10, 0, 5, NULL, 'Vram_Torosyan', '2023-09-07 19:01:03'),
+        ('Lilit Torosyan', 'Lilit_torosyan@bk.ru', 'Lilit_T', 'pbkdf2:sha256:600000$ZBFjC7PUB7WEhS1q$bb3537140248bd6b1b51d379d37ac256f3a62a2305f4afd793e7f89ca5dca116', NULL, NULL, 10, 0, 5, NULL, 'Lilit_Torosyan', '2023-09-07 19:24:45'),
+        ('Rob Harutyunyan', 'Rob@gmil.com', 'Robb1993', 'pbkdf2:sha256:600000$nXORK0vy8f8Yl8JT$9d8d1b8734730490565a096a7944f19f201802a0be42144366cba6428153f6ee', NULL, NULL, 10, 0, 5, NULL, 'Robik', '2023-09-07 19:00:18');
+
+
+INSERT INTO public."user" (login, email, psw, user_status)
+VALUES
+    ('Admin', 'geghampetrosyan@bk.ru', 'pbkdf2:sha256:600000$DCs7qo6jEYj4pCQE$be9c2241f84e4263064541be39410ad8b5df1fcf827f9ff876473a98839f808b', 'Main Admin'),
+    ('Admin1', 'Arsen_petrosyan@mail.com', 'pbkdf2:sha256:600000$tzIrAfSyHRnQ54fj$c87a5954d044dbd9c5b9069d300e7de9b609f9b7bed4e5fca50e7687ef3c0e72', 'Admin'),
+    ('Rob2', 'Rob@gmil.com', 'pbkdf2:sha256:600000$x3GkhvQm9qr9f7ut$2ee2a7060cdf9e59328add2aa68a982d270efebeac88d3c106a8c075a9c724d1', 'Admin'),
+    ('Hakob', 'Hak_Har@gmail.com', 'pbkdf2:sha256:600000$YyGbQsdtlZHqwbUG$0638d4a666dc8cb89d2dfb795584a41c5e12f6067576df9ca988402b0e3d4cd5', 'Admin'),
+    ('Artur', 'Artur_Pet@bk.ru', 'pbkdf2:sha256:600000$LkqKyRUkLPQlMZfA$e9546ff15140f4fe7755ee942d0d0703aa5f8711ec89094d4926464d2ddecb58', 'Admin'),
+    ('Vardan1995', 'VardanJ@mail.com', 'pbkdf2:sha256:600000$AAsLRqfsAyMrtewH$5460df13e3102c45f78a60626c43f75896284f6e1344f8dfe2c5ea882eb2d55a', 'Junior Admin'),
+    ('Gevor_S', 'Gevor_Pogosyan@mail.ru', 'pbkdf2:sha256:600000$BTqiKQdeeeXc8hBp$d0a8d1761dd1083cdd37034bd985f2319a1db94dbb3c47db80df3afbf333c0b6', 'Admin'),
+    ('Sargis_1', 'Sargis_Petrosyan@gmail.com', 'pbkdf2:sha256:600000$0C4cEGGrgwJiKvkA$78b239513d4dacf096c0526af04e53c2b674852e368f4e1e18f9ec59cc14e4d7', 'Junior Admin');
